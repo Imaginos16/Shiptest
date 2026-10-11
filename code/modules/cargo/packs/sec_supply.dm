@@ -28,7 +28,7 @@
 
 /datum/supply_pack/sec_supply/empty_sandbags
 	name = "Empty Sandbags"
-	desc = "Contains one box of seven empty sandbags for deployable cover in the field. Sand not included."
+	desc = "Contains one box of thirty empty sandbags for deployable cover in the field. Sand not included."
 	contains = list(/obj/item/storage/box/emptysandbags)
 	cost = 150
 	crate_name = "sandbag crate"
@@ -257,6 +257,17 @@
 	contains = list(/obj/item/grenade/frag)
 	crate_name = "frag grenade crate"
 	crate_type = /obj/structure/closet/crate/secure/weapon
+
+/datum/supply_pack/sec_supply/lorentz_grenade
+	name = "Lorentz Grenade Crate"
+	desc = "Contains one lorentz grenade. Better not let it go off in your hands."
+	cost = 300
+	contains = list(/obj/item/grenade/lorentz)
+	crate_name = "lorentz grenade crate"
+	crate_type = /obj/structure/closet/crate/secure/weapon
+	faction = /datum/faction/syndicate/cybersun
+	faction_discount = 0
+	faction_locked = TRUE
 
 /datum/supply_pack/sec_supply/c4duffel
 	name = "C-4 Demolitions Charge Crate"

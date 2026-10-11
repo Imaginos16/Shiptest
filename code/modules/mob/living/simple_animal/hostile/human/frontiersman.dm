@@ -34,6 +34,45 @@
 	minbodytemp = 0
 	mob_spawner = /obj/effect/mob_spawn/human/corpse/frontier/internals
 
+/mob/living/simple_animal/hostile/human/frontier/mace
+	name = "Frontiersman Bludgeon"
+	desc = "A member of the brutal Frontiersman terrorist fleet! This one clutches a terrifying metallic mace, eager to shatter your ribs."
+	icon_state = "frontiersmanmelee"
+	icon = 'icons/mob/simple_frontiersman.dmi'
+	speak_chance = 0
+	melee_damage_lower = 25
+	melee_damage_upper = 25
+	armour_penetration = 20
+	r_hand = /obj/item/melee/trench_club
+	sharpness = SHARP_NONE
+	dodging = TRUE
+
+/mob/living/simple_animal/hostile/human/frontier/mace/internals
+	icon_state = "frontiersmanmelee_mask"
+	atmos_requirements = IMMUNE_ATMOS_REQS
+	minbodytemp = 0
+	mob_spawner = /obj/effect/mob_spawn/human/corpse/frontier/internals
+
+/mob/living/simple_animal/hostile/human/frontier/junkie
+	name = "Frontiersman Junkie"
+	desc = "A member of the brutal Frontiersman terrorist fleet! This one froths at the mouth, loaded with combat stimulants and pale hands as they clench a pair of brass knuckles."
+	icon_state = "frontiersmanmelee"
+	icon = 'icons/mob/simple_frontiersman.dmi'
+	speak_chance = 0
+	melee_damage_lower = 15
+	melee_damage_upper = 15
+	rapid_melee = 4
+	l_hand = /obj/item/brass_knuckles
+	r_hand = null
+	sharpness = SHARP_NONE
+	dodging = TRUE
+
+/mob/living/simple_animal/hostile/human/frontier/junkie/internals
+	icon_state = "frontiersmanmelee_mask"
+	atmos_requirements = IMMUNE_ATMOS_REQS
+	minbodytemp = 0
+	mob_spawner = /obj/effect/mob_spawn/human/corpse/frontier/internals
+
 /mob/living/simple_animal/hostile/human/frontier/axe
 	name = "Frontiersman Chopper"
 	desc = "A member of the brutal Frontiersman terrorist fleet! This one clutches bulky combat axe, riveting the idea of turning your innards to gore."
@@ -51,6 +90,42 @@
 	atmos_requirements = IMMUNE_ATMOS_REQS
 	minbodytemp = 0
 	mob_spawner = /obj/effect/mob_spawn/human/corpse/frontier/internals
+
+/mob/living/simple_animal/hostile/human/frontier/hullpiercer
+	name = "Frontiersman Hullpiercer"
+	desc = "A member of the brutal Frontiersman terrorist fleet! This one wields a massive hullpiercing axe wrapped designed specifically to slice apart ship hulls and to butcher the poor souls in them. You hear them growling as they spit bits and pieces of wholly incomprehensible poetry."
+	icon_state = "frontiersmanmeleehullpiercer"
+	icon_living = "frontiersmanmeleehullpiercer"
+	speak_chance = 0
+	melee_damage_lower = 50
+	melee_damage_upper = 50
+	armour_penetration = 20
+	maxHealth = 250
+	health = 250
+	armor_base = /obj/item/clothing/suit/space/hardsuit/security/independent/frontier
+	attack_verb_continuous = "cleaved"
+	attack_verb_simple = "chopped"
+	attack_sound = list('sound/weapons/melee/heavyaxe_hit1.ogg', 'sound/weapons/melee/heavyaxe_hit2.ogg')
+	stat_attack = HARD_CRIT
+	rapid_melee = 2
+	minbodytemp = 0
+	maxbodytemp = 1000
+	minimum_pressure = 0
+	maximum_pressure = INFINITY
+	atmos_requirements = IMMUNE_ATMOS_REQS
+	loot = list()
+	l_hand = /obj/item/melee/axe/frontiersmen_axe
+	r_hand = null
+	mob_spawner = /obj/effect/mob_spawn/human/corpse/frontier/hullpiercer
+
+/mob/living/simple_animal/hostile/human/frontier/hullpiercer/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
+	set_light(4)
+
+/mob/living/simple_animal/hostile/human/frontier/hullpiercer/Aggro()
+	..()
+	say("IN OUR HEARTS AND IN OUR BLOOD, I'LL KILL UNTIL OUR FREEDOM'S WON!!")
 
 /mob/living/simple_animal/hostile/human/frontier/ranged
 	name = "Frontiersman Quickdraw"
@@ -70,6 +145,8 @@
 	atmos_requirements = IMMUNE_ATMOS_REQS
 	minbodytemp = 0
 	maxbodytemp = 1000
+	minimum_pressure = 0
+	maximum_pressure = INFINITY
 	mob_spawner = /obj/effect/mob_spawn/human/corpse/frontier/space
 	armor_base = /obj/item/clothing/suit/space/hardsuit/security/independent/frontier
 
@@ -139,6 +216,8 @@
 	atmos_requirements = IMMUNE_ATMOS_REQS
 	minbodytemp = 0
 	maxbodytemp = 1000
+	minimum_pressure = 0
+	maximum_pressure = INFINITY
 	icon_state = "frontiersmanpounder"
 	mob_spawner = /obj/effect/mob_spawn/human/corpse/frontier/space
 	armor_base = /obj/item/clothing/suit/space/hardsuit/security/independent/frontier
@@ -204,6 +283,8 @@
 	icon_state = "frontiersmanrangedrifle_space"
 	minbodytemp = 0
 	maxbodytemp = 1000
+	minimum_pressure = 0
+	maximum_pressure = INFINITY
 	mob_spawner = /obj/effect/mob_spawn/human/corpse/frontier/space
 	armor_base = /obj/item/clothing/suit/space/hardsuit/security/independent/frontier
 
@@ -265,13 +346,16 @@
 	casingtype = /obj/item/ammo_casing/c9mm
 	r_hand = /obj/item/gun/ballistic/automatic/pistol/spitter
 
+/mob/living/simple_animal/hostile/human/frontier/ranged/trooper/spitter/neutered
+	weapon_drop_chance = 0
+
 /mob/living/simple_animal/hostile/human/frontier/ranged/trooper/spitter/internals
 	icon_state = "frontiersmanrangedelite_mask"
 	mob_spawner = /obj/effect/mob_spawn/human/corpse/frontier/ranged/trooper/internals
 	atmos_requirements = IMMUNE_ATMOS_REQS
 	minbodytemp = 0
 
-/mob/living/simple_animal/hostile/human/frontier/ranged/trooper/spitter/neutered
+/mob/living/simple_animal/hostile/human/frontier/ranged/trooper/spitter/internals/neutered
 	weapon_drop_chance = 0
 
 /mob/living/simple_animal/hostile/human/frontier/ranged/trooper/space
@@ -280,6 +364,8 @@
 	icon_state = "frontiersmenrangedelite_space"
 	minbodytemp = 0
 	maxbodytemp = 1000
+	minimum_pressure = 0
+	maximum_pressure = INFINITY
 	mob_spawner = /obj/effect/mob_spawn/human/corpse/frontier/space
 	armor_base = /obj/item/clothing/suit/space/hardsuit/security/independent/frontier
 
@@ -321,6 +407,18 @@
 	r_hand = /obj/item/gun/ballistic/automatic/marksman/f4/indie
 	armor_base = /obj/item/clothing/suit/armor/vest/frontier
 
+/mob/living/simple_animal/hostile/human/frontier/ranged/trooper/f3/neutered
+	weapon_drop_chance = 0
+
+/mob/living/simple_animal/hostile/human/frontier/ranged/trooper/f3/internals
+	icon_state = "frontiersmanrangedmosin_mask"
+	atmos_requirements = IMMUNE_ATMOS_REQS
+	minbodytemp = 0
+	mob_spawner = /obj/effect/mob_spawn/human/corpse/frontier/ranged/trooper/internals
+
+/mob/living/simple_animal/hostile/human/frontier/ranged/trooper/f3/internals/neutered
+	weapon_drop_chance = 0
+
 
 /mob/living/simple_animal/hostile/human/frontier/ranged/trooper/f3/sentry
 	vision_range = 14
@@ -330,6 +428,18 @@
 	wander = 0
 	retreat_distance = 0
 	environment_smash = 0
+
+/mob/living/simple_animal/hostile/human/frontier/ranged/trooper/f3/sentry/neutered
+	weapon_drop_chance = 0
+
+/mob/living/simple_animal/hostile/human/frontier/ranged/trooper/f3/sentry/internals
+	icon_state = "frontiersmanrangedmosin_mask"
+	atmos_requirements = IMMUNE_ATMOS_REQS
+	minbodytemp = 0
+	mob_spawner = /obj/effect/mob_spawn/human/corpse/frontier/ranged/trooper/internals
+
+/mob/living/simple_animal/hostile/human/frontier/ranged/trooper/f3/sentry/internals/neutered
+	weapon_drop_chance = 0
 
 /mob/living/simple_animal/hostile/human/frontier/ranged/trooper/wasp
 	name = "Frontiersman Stinger"
@@ -402,6 +512,8 @@
 	atmos_requirements = IMMUNE_ATMOS_REQS
 	minbodytemp = 0
 	maxbodytemp = 1000
+	minimum_pressure = 0
+	maximum_pressure = INFINITY
 	icon_state = "frontiersmanrangedak47_space"
 	mob_spawner = /obj/effect/mob_spawn/human/corpse/frontier/space
 	armor_base = /obj/item/clothing/suit/space/hardsuit/security/independent/frontier
@@ -462,6 +574,8 @@
 	atmos_requirements = IMMUNE_ATMOS_REQS
 	minbodytemp = 0
 	maxbodytemp = 1000
+	minimum_pressure = 0
+	maximum_pressure = INFINITY
 	icon_state = "frontiersmanrangedminigun_space"
 	mob_spawner = /obj/effect/mob_spawn/human/corpse/frontier/space
 
@@ -523,7 +637,7 @@
 	casingtype = /obj/item/ammo_casing/shotgun/buckshot
 	projectilesound = 'sound/weapons/gun/shotgun/bulldog.ogg'
 	shoot_point_blank = TRUE
-	r_hand = /obj/item/gun/ballistic/shotgun/cm15
+	r_hand = /obj/item/gun/ballistic/shotgun/automatic/cm15
 	weapon_drop_chance = 100
 
 /mob/living/simple_animal/hostile/human/frontier/ranged/officer/f4

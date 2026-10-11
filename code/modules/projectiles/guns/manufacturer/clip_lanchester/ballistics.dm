@@ -69,7 +69,7 @@
 
 /obj/item/gun/ballistic/automatic/pistol/cm70
 	name = "CM-70 machine pistol"
-	desc = "A compact machine pistol designed to rapidly fire 3-round bursts. Popular with officers and certain special units, the CM-70 is incredibly dangerous at close range. Chambered in 9mm."
+	desc = "A compact machine pistol designed to rapidly fire 9mm ammo. Popular with officers and certain special units, the CM-70 is incredibly dangerous at close range. Chambered in 9mm."
 	icon = 'icons/obj/guns/manufacturer/clip_lanchester/48x32.dmi'
 	lefthand_file = 'icons/obj/guns/manufacturer/clip_lanchester/lefthand.dmi'
 	righthand_file = 'icons/obj/guns/manufacturer/clip_lanchester/righthand.dmi'
@@ -82,8 +82,8 @@
 	)
 	burst_size = 3
 	burst_delay = 0.1 SECONDS
-	fire_delay = 0.4 SECONDS
-	gun_firemodes = list(FIREMODE_SEMIAUTO, FIREMODE_BURST)
+	fire_delay = 0.07 SECONDS
+	gun_firemodes = list(FIREMODE_SEMIAUTO, FIREMODE_FULLAUTO)
 	default_firemode = FIREMODE_SEMIAUTO
 	manufacturer = MANUFACTURER_MINUTEMAN
 
@@ -93,7 +93,7 @@
 	fire_sound = 'sound/weapons/gun/pistol/cm70.ogg'
 
 	spread = 8
-	spread_unwielded = 20
+	spread_unwielded = 8
 
 	wear_minor_threshold = 240
 	wear_major_threshold = 720
@@ -206,8 +206,8 @@ NO_MAG_GUN_HELPER(automatic/pistol/cm357)
 	weapon_weight = WEAPON_LIGHT
 	fire_sound = 'sound/weapons/gun/smg/cm5.ogg'
 	manufacturer = MANUFACTURER_MINUTEMAN
-
-	spread = 3
+	fire_delay = 0.09 SECONDS // despite being 1 fire delay previously, it fucking rounds up to 1.5. This makes it ACTUALLY ONE
+	spread = 4
 	spread_unwielded = 7
 
 	valid_attachments = CLIP_ATTACHMENTS
@@ -234,6 +234,7 @@ NO_MAG_GUN_HELPER(automatic/pistol/cm357)
 NO_MAG_GUN_HELPER(automatic/smg/cm5)
 
 /obj/item/gun/ballistic/automatic/smg/cm5/rubber
+	autowiki_hidden = TRUE //ERT loadout only, which is an admin-summoned event
 	default_ammo_type = /obj/item/ammo_box/magazine/cm5_9mm/rubber
 
 /obj/item/ammo_box/magazine/cm5_9mm
@@ -501,6 +502,7 @@ NO_MAG_GUN_HELPER(automatic/marksman/f4/inteq)
 	fire_sound = 'sound/weapons/gun/rifle/cm82.ogg'
 	icon_state = "cm82"
 	item_state = "cm82"
+	manufacturer = MANUFACTURER_MINUTEMAN
 	show_magazine_on_sprite = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_SUITSTORE
@@ -553,12 +555,16 @@ NO_MAG_GUN_HELPER(automatic/marksman/f4/inteq)
 
 	icon_state = "cm24"
 	item_state = "cm24"
-	manufacturer = MANUFACTURER_NONE
+	manufacturer = MANUFACTURER_MINUTEMAN //only until we init so that this goes to lanchester city firearms plant in autowiki
 
 	fire_select_icon_state_prefix = "clip_"
 	adjust_fire_select_icon_state_on_safety = TRUE
 
 NO_MAG_GUN_HELPER(automatic/assault/skm/cm24)
+
+/obj/item/gun/ballistic/automatic/assault/skm/cm24/Initialize(mapload, spawn_empty)
+	. = ..()
+	manufacturer = MANUFACTURER_NONE // back to the status quo
 
 /obj/item/gun/ballistic/automatic/hmg/cm40
 	name = "\improper CM-40"
@@ -742,7 +748,7 @@ NO_MAG_GUN_HELPER(automatic/assault/skm/cm24)
 
 //########### MISC ###########//
 
-/obj/item/gun/ballistic/shotgun/cm15
+/obj/item/gun/ballistic/shotgun/automatic/cm15
 	name = "\improper CM-15"
 	desc = "A large automatic shotgun used by CLIP. Generally employed by law enforcement and breaching specialists, and rarely by CLIP-BARD (typically with incendiary ammunition). Chambered in 12 gauge."
 	icon = 'icons/obj/guns/manufacturer/clip_lanchester/48x32.dmi'
@@ -755,9 +761,10 @@ NO_MAG_GUN_HELPER(automatic/assault/skm/cm24)
 
 	fire_select_icon_state_prefix = "clip_"
 	adjust_fire_select_icon_state_on_safety = TRUE
-
+	fire_delay = 0.3 SECONDS
 	manufacturer = MANUFACTURER_MINUTEMAN
-
+	gun_firemodes = list(FIREMODE_SEMIAUTO, FIREMODE_FULLAUTO)
+	gun_firenames = list(FIREMODE_SEMIAUTO = "single", FIREMODE_FULLAUTO = "auto")
 	weapon_weight = WEAPON_MEDIUM
 	default_ammo_type = /obj/item/ammo_box/magazine/cm15_12g
 	allowed_ammo_types = list(
@@ -803,10 +810,9 @@ NO_MAG_GUN_HELPER(automatic/assault/skm/cm24)
 		)
 	)
 
-/obj/item/gun/ballistic/shotgun/cm15/no_mag
+/obj/item/gun/ballistic/shotgun/automatic/cm15/no_mag
 	default_ammo_type = FALSE
 
-/obj/item/gun/ballistic/shotgun/cm15/incendiary
+/obj/item/gun/ballistic/shotgun/automatic/cm15/incendiary
+	autowiki_hidden = TRUE //ERT loadout only, which is an admin-summoned event
 	default_ammo_type = /obj/item/ammo_box/magazine/cm15_12g/incendiary
-
-

@@ -159,8 +159,8 @@
 
 /datum/sprite_accessory/body/ipc_chassis/lanchesterworker
 	name = "HARDLINE 'Longshore'"
-	desc = "HARDLINE's only frame. It's based on a Lanchester Mechanics frame with custom plating, intended to help with internal shipbuilding. However, it's\
-	specializiation has made it popular outside the company's production lines, and is commonly sold in volume as a side-buisness for HARDLINE."
+	desc = "HARDLINE's only frame. It's based on a Lanchester Mechanics frame with custom plating, intended to help with internal shipbuilding. However, its\
+	\nspecialization has made it popular outside the company's production lines, and is commonly sold in volume as a side-business for HARDLINE."
 	replacement_bodyparts = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/ipc/lanchesterworker,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/ipc/lanchesterworker,
@@ -344,6 +344,17 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/ipc/ghost,
 	)
 
+/datum/sprite_accessory/body/ipc_chassis/alsa
+	name = "Al'sa 'Spotter'"
+	replacement_bodyparts = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/ipc/alsa,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/ipc/alsa,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/ipc/alsa,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/ipc/alsa,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/ipc/alsa,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/ipc/alsa,
+	)
+
 
 //Custom 3D Printed
 
@@ -523,6 +534,19 @@
 		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/ipc/customghost,
 		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/ipc/customghost,
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/ipc/customghost,
+	)
+
+/datum/sprite_accessory/body/ipc_chassis/alsac
+	name = "Custom 3d Printed Al'sa 'Spotter'"
+	desc = GENERIC_3D_PRINTED_DESC
+	color_src = MUTCOLORS
+	replacement_bodyparts = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/ipc/customalsa,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/ipc/customalsa,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/ipc/customalsa,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/ipc/customalsa,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/ipc/customalsa,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/ipc/customalsa,
 	)
 
 #undef GENERIC_3D_PRINTED_DESC

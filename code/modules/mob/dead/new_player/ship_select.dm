@@ -31,17 +31,29 @@
 				spawnee.new_player_panel()
 				return
 
+			var/datum/job/selected_job = locate(params["job"]) in target.job_slots
+
 			var/did_application = FALSE
 			if(target.join_mode == SHIP_JOIN_MODE_APPLY)
 				var/datum/ship_application/current_application = target.get_application(spawnee)
 				if(isnull(current_application))
-					var/datum/ship_application/app = new(spawnee, target)
+					var/datum/ship_application/app = new(spawnee, target, selected_job)
 					if(app.get_user_response())
 						to_chat(spawnee, span_notice("Ship application sent. You will be notified if the application is accepted."))
+					else if(QDELETED(target))
+						to_chat(spawnee, span_warning("[target] no longer exists, application cancelled."))
+					else if(!target.has_applications_open())
+						to_chat(spawnee, span_warning("[target] stopped accepting applications before submission."))
 					else
 						to_chat(spawnee, span_notice("Application cancelled, or there was an error sending the application."))
 					return
 				switch(current_application.status)
+					if(SHIP_APPLICATION_UNFINISHED)
+						alert(spawnee, "You already have an application window open for this ship!")
+						return
+					if(SHIP_APPLICATION_CANCELLED)
+						alert(spawnee, "Your previous application is still closing. Please try again.")
+						return
 					if(SHIP_APPLICATION_ACCEPTED)
 						to_chat(spawnee, span_notice("Your ship application was accepted, continuing..."))
 					if(SHIP_APPLICATION_PENDING)
@@ -63,7 +75,6 @@
 				return // pop-up warning for new players that forgot to set their
 
 			ui.close()
-			var/datum/job/selected_job = locate(params["job"]) in target.job_slots
 			//boots you out if you're banned from officer roles
 			if(selected_job.officer && is_banned_from(spawnee.ckey, "Ship Command"))
 				to_chat(spawnee, span_danger("You are banned from Officer roles!"))
@@ -110,12 +121,15 @@
 			var/ship_loc
 			var/datum/overmap_star_system/selected_system //the star system we want to spawn in
 
-			if(length(SSovermap.outposts) > 1)
-				var/datum/overmap/outpost/temp_loc = input(spawnee, "Select outpost to spawn at") as null|anything in SSovermap.outposts
+			var/list/valid_spawns = SSovermap.get_spawn_outposts()
+
+			if(valid_spawns > 1)
+				var/datum/overmap/outpost/temp_loc = input(spawnee, "Select outpost to spawn at") as null|anything in valid_spawns
 				if(!temp_loc)
 					return
 				selected_system = temp_loc.current_overmap
 				ship_loc = temp_loc
+
 			else
 				ship_loc = SSovermap.outposts[1]
 				selected_system = SSovermap.tracked_star_systems[1]

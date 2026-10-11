@@ -4,6 +4,7 @@
 	icon_state = "standard_stun"
 	density = TRUE
 	desc = "A turret that shoots at its enemies."
+	power_flags = POWER_ALLOW_WIRE | POWER_ALLOW_AREA
 	use_power = IDLE_POWER_USE
 	idle_power_usage = IDLE_DRAW_LOW
 	active_power_usage = ACTIVE_DRAW_HIGH
@@ -628,6 +629,7 @@
 	shot.firer = src
 	shot.fired_from = src
 	shot.fire()
+	return shot
 
 /obj/machinery/porta_turret/proc/set_target(atom/movable/target = null)
 	if(current_target)
